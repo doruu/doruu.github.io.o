@@ -10,16 +10,14 @@
 <h3><a id="_12"></a>핀연결</h3>
 <h4><a id="1_servo_14"></a>1번 servo</h4>
 <ul>
-<li>
-<p>빨간색(5v 전원), 노란색(18번), 검정색(gnd)</p>
+<li>빨간색(5v 전원), 노란색(18번), 검정색(gnd)</li>
+</ul>
 <p><img src="http://doruu.github.io/projects/rpi-camera/img/servo_connect.jpg" alt=""></p>
 <p><img src="http://doruu.github.io/projects/rpi-camera/img/servo_connect2.jpg" alt=""></p>
-</li>
-</ul>
 <h4><a id="2_servo___21"></a>2번 servo까지 연결한 모습</h4>
 <p><img src="http://doruu.github.io/projects/rpi-camera/img/servo_connect3.jpg" alt=""></p>
-<h3><a id="wiringPi_24"></a>wiringPi</h3>
-<h3><a id="_26"></a></h3>
+<h3><a id="wiringPi_25"></a>wiringPi</h3>
+<h3><a id="_27"></a></h3>
 <pre><code>    pinMode(18, PWM_OUTPUT);
     pwmSetMode(PWM_MODE_MS);
     pwmSetClock(384);
@@ -43,17 +41,19 @@
 5, 50HZ = 19200000 / 192 / 2000     --- 100 ~ 200
 </code></pre>
 <p>range 가 20ms(?) 이면 위 모터 사양대로 1~2 까지 입력을 주면 될까 싶어 테스트를 해 보았으나 모터가 정상동작을 하지 않더군요. 가운데 3개는 별문제 없었으나  마지막 2000 역시 동작하지 않았습니다. 1번테스트는 잠깐 놔두니 모터에서 발열이 발생합니다… 정확한 이유는 나중에 찾아봐야할듯합니다.</p>
-<h4><a id="servocpp_60"></a>servo.cpp</h4>
+<h4><a id="servocpp_61"></a>servo.cpp</h4>
 <p>c 로 간단히 2개 인자를 넘겨받는 코드를 작성합니다. 1번 인자는 좌우 제어 각, 2번인자는 상하 제어각, 각각 ~90도 ~ 90 도 값을 입력값으로 합니다. 그리고 pwm 입력값인  50 ~ 100 으로 변환 해주는 간단한 코드입니다.</p>
-<h5><a id="_63"></a>빌드</h5>
+<h5><a id="_64"></a>빌드</h5>
 <pre><code>$ gcc servo.cpp -lwiringpi -lstdc++ -o servo
 </code></pre>
-<h5><a id="_67"></a>실행</h5>
+<h5><a id="_68"></a>실행</h5>
 <pre><code>$ sudo ./servo 0 0
 </code></pre>
-<h3><a id="servojs_73"></a>servo.js</h3>
-<p>서버로 돌릴 node 코드 입니다. <a href="http://192.168.0.20:3030/servo?lr=0&amp;tb=0">http://192.168.0.20:3030/servo?lr=0&amp;tb=0</a> lr과 tb 를 입력값으로 servo.cpp 로 나온 실행파일을 실행합니다.</p>
-<h1><a id="pan_tilt__76"></a>pan, tilt 킷</h1>
+<h3><a id="servojs_74"></a>servo.js</h3>
+<p>서버로 돌릴 node 코드 입니다. <a href="http://192.168.0.20:3030/servo?lr=0&amp;tb=0">http://192.168.0.20:3030/servo?lr=0&amp;tb=0</a> lr과 tb 를 입력값으로 servo.cpp 로 나온 실행파일을 실행합니다. 소스에서 라즈베리파이가 연결된 ip 로 변경해주어야합니다.</p>
+<pre><code>server.listen(3030, &quot;라즈베리파이 ip&quot;);
+</code></pre>
+<h1><a id="pan_tilt__81"></a>pan, tilt 킷</h1>
 <p>카메라를 좌우 상하로 움직이기 위한 킷이 몇개 팔지만 집에 남는 포맥스가 있어서 간단하게 만들어 봤습니다.</p>
 <ul>
 <li>50mm X 50mm 정도 포맥스에 카메라를 고정시키고 아래뒤쪽을 제외한 3면을 막아주었습니다.</li>
